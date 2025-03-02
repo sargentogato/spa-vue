@@ -1,4 +1,6 @@
+import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath, URL } from 'node:url'
+
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -9,10 +11,13 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    tailwindcss()
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@styles': fileURLToPath(new URL('./src/assets/style.css', import.meta.url)),
+      '@landing': fileURLToPath(new URL('./src/modules/landig', import.meta.url)),
     },
   },
 })
