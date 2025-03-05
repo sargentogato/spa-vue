@@ -14,7 +14,8 @@
         <router-link :to="{name:'pricingPage'}"> Pricing </router-link>
         <router-link :to="{name:'contactPage'}"> Contact </router-link>
       </div>
-      <div>
+      <div class="flex gap-4">
+        <router-link :to="{name:'pokemon', params: { id: 1 }}"> Pokémon </router-link>
         <router-link :to="{name:'login'}"> Login </router-link>
         </div>
       </nav>

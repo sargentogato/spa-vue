@@ -1,5 +1,5 @@
 import HomePage from '@/modules/landing/pages/HomePage.vue';
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, type RouteRecordRaw  } from 'vue-router';
 
 const routes = [
   //Landing
@@ -32,8 +32,16 @@ const routes = [
         //:id los argumentos que se reciben por aquí serán strings
         path: '/pokemon/:id',
         name: 'pokemon',
-        component: () => import('@/modules/pokemons/pages/PokemonPage.vue')
-      }
+        beforeEnter: [(to, from, next) => {
+          return next()
+        }],
+        component: () => import('@/modules/pokemons/pages/PokemonPage.vue'),
+        props: (route: { params: { id: string; }; }) => {
+          const id = Number(route.params.id);
+            
+          return isNaN(id) ? { id: 1 } : { id } 
+        }
+      },
     ],
   },
 
@@ -60,7 +68,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: '404',
-    component: () => import('@/modules/common/pages/NotFound404.vue')
+    component: () => import('@/modules/common/pages/NotFound404.vue'),
     // redirect: {name: 'home'}
   },
 ];
