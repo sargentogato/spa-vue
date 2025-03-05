@@ -9,13 +9,15 @@
       </div>
       <nav class="ml-auto space-x-4 flex items-center h-10 sm:space-x-6">
         <div class="flex gap-4">
-        <router-link :to="{name:'home'}"> Home </router-link>
-        <router-link :to="{name:'featurePage'}"> Features </router-link>
-        <router-link :to="{name:'pricingPage'}"> Pricing </router-link>
-        <router-link :to="{name:'contactPage'}"> Contact </router-link>
-      </div>
-      <div>
-        <router-link :to="{name:'login'}"> Login </router-link>
+          <router-link :to="{ name: 'home' }"> Home </router-link>
+          <router-link :to="{ name: 'featurePage' }"> Features </router-link>
+          <router-link :to="{ name: 'pricingPage' }"> Pricing </router-link>
+          <router-link :to="{ name: 'contactPage' }"> Contact </router-link>
+        </div>
+        <div class="flex gap-4">
+          <!-- El to de la ruta, para pasar el id tenemos que usar param -->
+          <router-link :to="{ name: 'pokemon', params: { id: 1 } }"> Pokemon </router-link>
+          <router-link :to="{ name: 'login' }"> Login </router-link>
         </div>
       </nav>
     </header>
