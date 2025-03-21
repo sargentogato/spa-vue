@@ -42,12 +42,23 @@ const onLogin = () => {
     LocalStorage, podemos almacenar información de lo que queramos siempre y cuando sean strings. 4
     LocalStorage:permanece en el tiempo mientras no se borren/ sesionStorage: temporal
   */
-  localStorage.setItem('userId', 'ABC-123')
+  localStorage.setItem('userId', 'ABC-123');
+  /* 
+    Si el usuario quiere entrar a una sección en la cual necesita estar logueado, 
+    en el is-authenticated.guard, hemos guardado la sección a la que quería acceder
+    así cuando se logue, lo enviamos a esa última dirección que quería acceder.
+    
+    Pero si no hay ningún path, lo enviamos al home con /
+  */
+  const lastPath = localStorage.getItem('lastPath') ?? '/'
+  console.log("🚀 ~ onLogin ~ lastPath:", lastPath);
   
-  router.replace({
-    name: 'home'
-  }) 
-  
+  // router.replace({
+  //   name: 'home'
+  // })
+  //
+
+  router.replace(lastPath)
 }
 
 

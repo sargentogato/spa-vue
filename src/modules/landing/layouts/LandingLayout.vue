@@ -9,14 +9,14 @@
       </div>
       <nav class="ml-auto space-x-4 flex items-center h-10 sm:space-x-6">
         <div class="flex gap-4">
-        <router-link :to="{name:'home'}"> Home </router-link>
-        <router-link :to="{name:'featurePage'}"> Features </router-link>
-        <router-link :to="{name:'pricingPage'}"> Pricing </router-link>
-        <router-link :to="{name:'contactPage'}"> Contact </router-link>
-      </div>
-      <div class="flex gap-4">
-        <router-link :to="{name:'pokemon', params: { id: 1 }}"> Pokémon </router-link>
-        <router-link :to="{name:'login'}"> Login </router-link>
+          <router-link :to="{ name: 'home' }"> Home </router-link>
+          <router-link :to="{ name: 'featurePage' }"> Features </router-link>
+          <router-link :to="{ name: 'pricingPage' }"> Pricing </router-link>
+          <router-link :to="{ name: 'contactPage' }"> Contact </router-link>
+        </div>
+        <div class="flex gap-4">
+          <router-link :to="{ name: 'pokemon', params: { id: pokemonId ?? 1 } }"> Pokémon </router-link>
+          <router-link :to="{ name: 'login' }"> Login </router-link>
         </div>
       </nav>
     </header>
@@ -24,7 +24,15 @@
 
     <!-- Main -->
     <main class="flex-1 flex items-center justify-center">
-      <RouterView />
+      
+      <router-view v-slot="{ Component }">
+        <KeepAlive :include="['HomePage', 'featurePage', 'pokemonPage']">
+          <component :is="Component" @id="eventHandler"/>
+        </KeepAlive>
+      </router-view>
+
+
+      <!-- <RouterView /> -->
     </main>
     <!-- Fin Main -->
 
@@ -37,3 +45,21 @@
     <!-- Fin Footer -->
   </div>
 </template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+const pokemonId = ref()
+
+const eventHandler = (newValue: number) => {
+
+  console.log("ROUTER:",newValue);
+  
+  pokemonId.value = newValue
+
+  console.log("POKEMON ID", pokemonId.value);
+  
+}
+
+
+</script>

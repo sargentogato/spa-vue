@@ -1,5 +1,6 @@
 import HomePage from '@/modules/landing/pages/HomePage.vue';
-import { createRouter, createWebHashHistory, type RouteRecordRaw  } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import isAuthenticatedGuard from '../modules/auth/guards/is-authenticated.guard';
 
 const routes = [
   //Landing
@@ -32,15 +33,15 @@ const routes = [
         //:id los argumentos que se reciben por aquí serán strings
         path: '/pokemon/:id',
         name: 'pokemon',
-        beforeEnter: [(to, from, next) => {
-          return next()
-        }],
-        component: () => import('@/modules/pokemons/pages/PokemonPage.vue'),
+        beforeEnter: [isAuthenticatedGuard],
         props: (route: { params: { id: string; }; }) => {
+          console.log(route);
+          
           const id = Number(route.params.id);
-            
+          
           return isNaN(id) ? { id: 1 } : { id } 
-        }
+        },
+        component: () => import('@/modules/pokemons/pages/PokemonPage.vue'),
       },
     ],
   },

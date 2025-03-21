@@ -15,23 +15,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, defineOptions } from 'vue';
+defineOptions({
+  name:'pokemonPage'
+})
 
 interface IProps {
   id: number
 }
 
+const emit = defineEmits<{id:[id: number]}>()
+
 const props = defineProps<IProps>()
 const urlImage = ref(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${props.id}.svg`)
 
 watch(() => props.id, ( newId ) => {
-  urlImage.value = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${newId}.svg`
+  urlImage.value = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${newId}.svg`;
+
+  sendInfo()
 })
 
 const nextId = computed(() => {
   return String(Number(props.id) + 1);
 })
 
+const sendInfo = () => {
+  emit('id', props.id)
+}
 </script>
 
 <style scoped>

@@ -13,11 +13,6 @@
 </template>
 
 <script setup lang="ts">
-
-const persona = () => {
-  //codigo
-}
-
 </script>
 
 <style scoped>
