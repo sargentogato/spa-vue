@@ -35,8 +35,6 @@ const routes = [
         name: 'pokemon',
         beforeEnter: [isAuthenticatedGuard],
         props: (route: { params: { id: string; }; }) => {
-          console.log(route);
-          
           const id = Number(route.params.id);
           
           return isNaN(id) ? { id: 1 } : { id } 

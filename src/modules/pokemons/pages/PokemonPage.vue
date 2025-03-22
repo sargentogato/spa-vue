@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, defineOptions } from 'vue';
+
 defineOptions({
   name:'pokemonPage'
 })

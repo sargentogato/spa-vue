@@ -24,11 +24,13 @@
 
     <!-- Main -->
     <main class="flex-1 flex items-center justify-center">
-      
+
       <router-view v-slot="{ Component }">
-        <KeepAlive :include="['HomePage', 'featurePage', 'pokemonPage']">
-          <component :is="Component" @id="eventHandler"/>
-        </KeepAlive>
+        <transition name="page">
+          <KeepAlive :include="['HomePage', 'featurePage', 'pokemonPage', 'featurePage']">
+            <component :is="Component" v-bind="route.name === 'pokemon' ? { onId: eventHandler } : {}" />
+          </KeepAlive>
+        </transition>
       </router-view>
 
 
@@ -48,17 +50,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
-const pokemonId = ref()
+const pokemonId = ref();
+const route = useRoute();
 
 const eventHandler = (newValue: number) => {
-
-  console.log("ROUTER:",newValue);
-  
-  pokemonId.value = newValue
-
-  console.log("POKEMON ID", pokemonId.value);
-  
+  pokemonId.value = newValue;
 }
 
 
